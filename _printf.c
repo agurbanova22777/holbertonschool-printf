@@ -27,7 +27,9 @@ int _printf(const char *format, ...)
 		{
 			if (format[i + 1] == '\0')
 			{
-				count += write(1, "%", 1);
+				/* print % ONLY if it's the first and only character */
+				if (i == 0)
+					count += write(1, "%", 1);
 				break;
 			}
 
