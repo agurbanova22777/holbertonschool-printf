@@ -5,7 +5,7 @@
  * _printf - produces output according to a format
  * @format: format string
  *
- * Return: number of characters printed
+ * Return: number of characters printed, -1 on error
  */
 int _printf(const char *format, ...)
 {
@@ -27,10 +27,8 @@ int _printf(const char *format, ...)
 		{
 			if (format[i + 1] == '\0')
 			{
-				/* print % ONLY if it's the first and only character */
-				if (i == 0)
-					count += write(1, "%", 1);
-				break;
+				va_end(ap);
+				return (-1);
 			}
 
 			i++;
@@ -47,7 +45,9 @@ int _printf(const char *format, ...)
 			}
 		}
 		else
+		{
 			count += write(1, &format[i], 1);
+		}
 		i++;
 	}
 
