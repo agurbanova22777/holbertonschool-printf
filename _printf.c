@@ -26,7 +26,10 @@ int _printf(const char *format, ...)
 		if (format[i] == '%')
 		{
 			if (format[i + 1] == '\0')
+			{
+				count += write(1, "%", 1);
 				break;
+			}
 
 			i++;
 			if (format[i] == 'c')
