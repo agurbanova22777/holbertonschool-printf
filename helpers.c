@@ -2,37 +2,44 @@
 #include <unistd.h>
 
 /**
- * print_char - prints a character
+ * print_int - prints an integer
  * @ap: argument list
  *
  * Return: number of characters printed
  */
-int print_char(va_list ap)
+int print_int(va_list ap)
 {
-	char c;
+	int n;
+	unsigned int num;
+	char buf[10];
+	int i;
+	int count;
 
-	c = va_arg(ap, int);
-	return (write(1, &c, 1));
-}
+	n = va_arg(ap, int);
+	count = 0;
 
-/**
- * print_string - prints a string
- * @ap: argument list
- *
- * Return: number of characters printed
- */
-int print_string(va_list ap)
-{
-	char *s;
-	int len;
+	if (n < 0)
+	{
+		count += write(1, "-", 1);
+		num = -n;
+	}
+	else
+	{
+		num = n;
+	}
 
-	s = va_arg(ap, char *);
-	if (s == NULL)
-		s = "(null)";
+	i = 0;
+	if (num == 0)
+		buf[i++] = '0';
 
-	len = 0;
-	while (s[len])
-		len++;
+	while (num > 0)
+	{
+		buf[i++] = (num % 10) + '0';
+		num /= 10;
+	}
 
-	return (write(1, s, len));
+	while (i--)
+		count += write(1, &buf[i], 1);
+
+	return (count);
 }

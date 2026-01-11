@@ -36,6 +36,8 @@ int _printf(const char *format, ...)
 				count += print_char(ap);
 			else if (format[i] == 's')
 				count += print_string(ap);
+			else if (format[i] == 'd' || format[i] == 'i')
+				count += print_int(ap);
 			else if (format[i] == '%')
 				count += write(1, "%", 1);
 			else
