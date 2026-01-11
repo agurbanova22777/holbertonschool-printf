@@ -23,8 +23,11 @@ int _printf(const char *format, ...)
 
 	while (format[i] != '\0')
 	{
-		if (format[i] == '%' && format[i + 1] != '\0')
+		if (format[i] == '%')
 		{
+			if (format[i + 1] == '\0')
+				break;
+
 			i++;
 			if (format[i] == 'c')
 				count += print_char(ap);
